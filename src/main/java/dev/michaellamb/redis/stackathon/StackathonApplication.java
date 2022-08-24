@@ -15,34 +15,22 @@ import com.redis.om.spring.annotations.EnableRedisDocumentRepositories;
 import dev.michaellamb.redis.stackathon.domain.Address;
 import dev.michaellamb.redis.stackathon.domain.Person;
 import dev.michaellamb.redis.stackathon.repository.PeopleRepository;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSwagger2
-@EnableRedisDocumentRepositories(basePackages = "dev.michaellamb.redis.stackathon.*")
+@EnableRedisDocumentRepositories(basePackages = "dev.michaellamb.redis.stackathon")
 public class StackathonApplication {
+
+	@Autowired
+	PeopleRepository peopleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(StackathonApplication.class, args);
 	}
 
 	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
-	}
-
-	@Bean
-	CommandLineRunner loadTestData(PeopleRepository repo) {
+	CommandLineRunner loadTestData(PeopleRepository peopleRepository) {
 		return args -> {
-			repo.deleteAll();
+			peopleRepository.deleteAll();
 		
 			String thorSays = "The Rabbit Is Correct, And Clearly The Smartest One Among You.";
 			String ironmanSays = "Doth mother know you weareth her drapes?";
@@ -76,7 +64,7 @@ public class StackathonApplication {
 			Person gamora = Person.of("Zoe", "Saldana", 43, gamoraSays, new Point(-118.399968, 34.073087), gamorasAddress, Set.of("skills", "martial_arts"));
 			Person nickFury = Person.of("Samuel L.", "Jackson", 73, nickFurySays, new Point(-118.4345534, 34.082615), nickFuryAddress, Set.of("planning", "deception", "resources"));
 		
-			repo.saveAll(List.of(thor, ironman, blackWidow, wandaMaximoff, gamora, nickFury));
+			peopleRepository.saveAll(List.of(thor, ironman, blackWidow, wandaMaximoff, gamora, nickFury));
 		  };
 	}
 }
