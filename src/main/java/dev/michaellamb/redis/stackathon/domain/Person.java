@@ -2,6 +2,7 @@ package dev.michaellamb.redis.stackathon.domain;
 
 import java.util.Set;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.geo.Point;
 
 import com.redis.om.spring.annotations.Document;
@@ -13,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.AccessLevel;
-import nonapi.io.github.classgraph.json.Id;
 
 @RequiredArgsConstructor(staticName = "of")
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
