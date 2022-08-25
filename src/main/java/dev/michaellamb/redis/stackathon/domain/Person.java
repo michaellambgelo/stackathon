@@ -3,11 +3,9 @@ package dev.michaellamb.redis.stackathon.domain;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.geo.Point;
 
 import com.redis.om.spring.annotations.Document;
 import com.redis.om.spring.annotations.Indexed;
-import com.redis.om.spring.annotations.Searchable;
 
 import lombok.RequiredArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -32,22 +30,14 @@ public class Person {
   @Indexed @NonNull
   private String lastName;
 
-  //Indexed for numeric matches
+  // Indexed for exact text matches
   @Indexed @NonNull
-  private Integer age;
+  private String discordTag;
 
-  //Indexed for Full Text matches
-  @Searchable @NonNull
-  private String personalStatement;
-
-  //Indexed for Geo Filtering
+  // Indexed for numeric matches
   @Indexed @NonNull
-  private Point homeLoc;
-
-  // Nest indexed object
-  @Indexed @NonNull
-  private Address address;
+  private Integer discordDiscriminator;
 
   @Indexed @NonNull
-  private Set<String> skills;
+  private Set<String> submissionLinkSet;
 }
