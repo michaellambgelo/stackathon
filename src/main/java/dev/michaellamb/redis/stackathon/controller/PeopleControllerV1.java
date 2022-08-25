@@ -73,11 +73,6 @@ public class PeopleControllerV1 {
     return peopleRepository.findById(id).map(person -> {
       person.setFirstName(newPerson.getFirstName());
       person.setLastName(newPerson.getLastName());
-      person.setAge(newPerson.getAge());
-      person.setAddress(newPerson.getAddress());
-      person.setHomeLoc(newPerson.getHomeLoc());
-      person.setPersonalStatement(newPerson.getPersonalStatement());
-
       return peopleRepository.save(person);
     }).orElseGet(() -> {
       return peopleRepository.save(newPerson);
